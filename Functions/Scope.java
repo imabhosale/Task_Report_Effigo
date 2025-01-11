@@ -1,3 +1,5 @@
+package Functions;
+
 public class Scope {
     
     // Global variables to store the rectangle's length and width (accessible within the whole class)
