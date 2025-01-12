@@ -47,8 +47,8 @@ public class DiceJack {
     public static int createRandomNum() {
         // create random function from 0 - 0.999999999
         int randomNum = (int) (Math.random() * 6); // make range of random num from 0-5.9999999
-    randomNum += 1;
-            return randomNum;
+        randomNum += 1;
+        return randomNum;
     }
 
 }
