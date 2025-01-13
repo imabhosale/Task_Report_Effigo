@@ -1,36 +1,32 @@
 package Oop;
 
+import java.util.Arrays;
+
 class ObjectWorld {
     private String carBrand;
     private int price;
     private int year;
     private String color;
+    private String []  parts;
 
-    public ObjectWorld(String carBrancd, int price, int year, String color) {
-        this.carBrand = carBrancd;
+    public ObjectWorld(String carBrand, int price, int year, String color, String[] parts) {
+        this.carBrand = carBrand;
         this.price = price;
         this.year = year;
         this.color = color;
-        // carBrancd=this.carBrand; //Not a proper way to use of this keyword
+        this.parts = Arrays.copyOf(parts,parts.length);
     }
 
     public ObjectWorld(ObjectWorld source){
         this.carBrand=source.carBrand;
-        this.color=source.color;
         this.price=source.price;
         this.year=source.year;
+        this.color=source.color;
+        this.parts=Arrays.copyOf(source.parts,source.parts.length);
+        
     }
 
-      /**
-     * methodName: drive() 
-     * Inside the method print :
-     * 
-     * @return void
-     */
 
-     public void drive(){
-        System.out.println("You bought a beautiful car "+this.carBrand+" "+this.color+"  for $ "+this.price+" on year "+this.year);
-     }
 
     /**
      * @return String return the carBrand
@@ -86,6 +82,20 @@ class ObjectWorld {
      */
     public void setColor(String color) {
         this.color = color;
+    }
+
+    /**
+     * @return String [] return the parts
+     */
+    public String [] getParts() {
+        return parts;
+    }
+
+    /**
+     * @param parts the parts to set
+     */
+    public void setParts(String [] parts) {
+        this.parts = parts;
     }
 
 }
