@@ -88,14 +88,22 @@ class ObjectWorld {
      * @return String [] return the parts
      */
     public String [] getParts() {
-        return parts;
+        return Arrays.copyOf(parts, parts.length);
     }
 
     /**
      * @param parts the parts to set
      */
     public void setParts(String [] parts) {
-        this.parts = parts;
+        this.parts = Arrays.copyOf(parts, parts.length);
     }
+
+    @Override
+    public String toString() {
+        return "ObjectWorld [carBrand=" + carBrand + ", price=" + price + ", year=" + year + ", color=" + color
+                + ", parts=" + Arrays.toString(parts) + "]";
+    }
+
+    
 
 }
