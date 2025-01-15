@@ -106,4 +106,10 @@ class ObjectWorld {
 
     
 
+    public void drive() {
+        // TODO Auto-generated method stub
+        System.out.println("You have to drive "+this.carBrand+" the car to ur nearest parking station");
+    }
+
+    
 }
