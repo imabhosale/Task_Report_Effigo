@@ -24,6 +24,16 @@ public class DealerShip {
         return temp;
     }
 
+    public ObjectWorld getObjectWorld(int index){
+        ObjectWorld copy=new ObjectWorld(this.cars[index]);
+        return copy;
+    }
+
+    public void setObjectWorld(int index,ObjectWorld newcar){
+        ObjectWorld copy=new ObjectWorld(newcar);
+        this.cars[index]=copy;
+    }
+
 
     public void sell(int index){
         cars[index].drive();
