@@ -1,13 +1,13 @@
 class Animal{
     public void eat(){
-        System.out.println("In eat method ");
+        System.out.println("In Parent eat method ");
     }
 }
 
 class Dog extends Animal{
     @Override
     public void eat(){
-        System.out.println("In eat method");
+        System.out.println("In child eat method");
     }
 
     public void bark(){
@@ -17,12 +17,10 @@ class Dog extends Animal{
 
 public class Casting {
     public static void main(String[] args) {
-       Animal ob = new Dog();
-       if(ob instanceof Dog){
-        Dog d=(Dog) ob; 
-        d.bark();
-       }
-           
+    
+       
+      
+       
        
     }
     
