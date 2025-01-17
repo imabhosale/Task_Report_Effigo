@@ -13,6 +13,13 @@ public class Magazine {
         setPublicationYear(publicationYear);
     }
 
+    public Magazine(Magazine ob) {
+        setTitle(ob.title);
+        setPublisher(ob.publisher);
+        setIssueNumber(ob.issueNumber);
+        setPublicationYear(ob.publicationYear);
+    }
+
     public String getTitle() {
         return this.title;
     }
