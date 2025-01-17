@@ -1,47 +1,106 @@
 package ExceptionHnadle;
-
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
+    static Store store = new Store();
+
     public static void main(String[] args) {
+
+        try {
+            loadMovies("ExceptionHnadle\\movies.txt");
+            printStore();
+            userInput();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public static void userInput() {
         Scanner scanner = new Scanner(System.in);
-        User user = new User();
-
-        System.out.println("We are setting up your user account.");
-
-        // Handle username input
-        try {
-            System.out.print("Your username is currently " + user.getUsername() + ". Please update it here: ");
-            String username = scanner.nextLine();
-            if (username.isBlank()) {
-                System.out.println("Error: Username cannot be blank.");
-            } else {
-                user.setUsername(username);
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
+        String status = "continue";
+    
+        while (status.equals("continue")) {
+            int choice = (promptForChoice(scanner));
+            Movie movie = store.getMovie(choice);
+            double rating = promptForRating(scanner, movie.getName());
+    
+            movie.setRating(rating);
+            store.setMovie(choice, movie);
+            printStore();
+            System.out.print("To edit another rating, type: 'continue': ");
+            status = scanner.next();
         }
-
-        // Handle age input
-        try {
-            System.out.print("Please enter your age: ");
-            if (scanner.hasNextInt()) {
-                int age = scanner.nextInt();
-                if (age > 0) {
-                    user.setAge(age);
-                } else {
-                    System.out.println("Error: Age must be greater than 0.");
-                }
-            } else {
-                System.out.println("Error: Invalid input. Age must be a number.");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-        // Display updated user details
-        System.out.println("Your updated username and age are: " + user.getUsername() + ", " + user.getAge());
-
         scanner.close();
+    }
+
+    public static int promptForChoice(Scanner scanner) {
+        while (true) {
+            System.out.print("\nPlease choose an integer between 0 - 9: ");
+
+            if(! scanner.hasNextInt()){
+                scanner.next();
+                continue;
+            }
+            
+
+            int choice = scanner.nextInt();
+
+            // 2. Anticipate the choice being incorrect.
+           if(incorrectChoice(choice)){
+            System.out.println("Incorrect choice ");
+            continue;
+           }
+            return choice;
+        }
+    }
+
+    public static boolean incorrectChoice(int choice) {
+        // TODO
+        return choice < 0 || choice > 9;
+    }
+
+    public static double promptForRating(Scanner scanner, String name) {
+        while (true) {
+            System.out.print("\nSet a new rating for " + name + ": ");
+            
+            // 1. Anticipate the user not entering a double.
+            if(! (scanner.hasNextInt() || scanner.hasNextDouble()) ){
+                scanner.next();
+                continue;
+            }
+            double rating = scanner.nextDouble();
+            
+            // 2. Anticipate the rating being incorrect.
+            if(incorrectRating(rating)){
+                System.out.println("Incorrect Rating ");
+                continue;
+               }
+            return rating;
+         }
+    }
+
+    public static boolean incorrectRating(double rating) {
+        // TODO
+        return rating > 10 || rating < 0;
+    }
+
+    public static void loadMovies(String fileName) throws FileNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        Scanner scanFile = new Scanner(fis);
+
+        while (scanFile.hasNextLine()) {
+            String line = scanFile.nextLine();
+            String [] words=line.split("--");
+            store.addMovie(new Movie(words[0],words[1],Double.parseDouble(words[2])));
+        }
+        scanFile.close();
+    }
+
+    public static void printStore() {
+        System.out.println("********************************MOVIE STORE*******************************");
+        System.out.println(store);
     }
 }
